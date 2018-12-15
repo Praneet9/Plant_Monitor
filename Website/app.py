@@ -1,6 +1,8 @@
 from flask import Flask, render_template, jsonify, request
-import json
+from static import db
 app = Flask(__name__)
+
+db.testingdb()
 
 @app.route("/")
 def index():
