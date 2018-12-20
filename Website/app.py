@@ -4,31 +4,37 @@ app = Flask(__name__)
 
 db.testingdb()
 
-@app.route("/")
+@app.route("/test")
 def index():
     var = "None now"
     try:
-        var = request.args['output_value0']
+        var = request.args['moisture_0']
         print("SMS0",var)
-        var = request.args['output_value1']
+        var = request.args['moisture_1']
         print("SMS1",var)
-        var = request.args['output_value2']
+        var = request.args['moisture_2']
         print("SMS2",var)
-        var = request.args['output_value3']
+        var = request.args['moisture_3']
         print("SMS3",var)
-        var = request.args['output_value4']
+        var = request.args['moisture_4']
         print("SMS4",var)
-        var = request.args['h1']
+        var = request.args['humidity_1']
         print("h1",var)
-        var = request.args['t1']
+        var = request.args['temperature_1']
         print("t1",var)
-        var = request.args['h2']
-        print("h2",var)
-        var = request.args['t2']
-        print("t2",var)
+        # var = request.args['h2']
+        # print("h2",var)
+        # var = request.args['t2']
+        # print("t2",var)
     except Exception as e:
         print(e)
     return str(var)
+
+@app.route("/test")
+def test():
+    print("I am here!!!")
+    print("SMS2",request.args['x'])
+    return "Hello"
 
 @app.route("/chart")
 def chart():

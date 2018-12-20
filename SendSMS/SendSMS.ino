@@ -1,5 +1,5 @@
 #include <SoftwareSerial.h>
-SoftwareSerial SIM900A(10,11);
+SoftwareSerial SIM900A(11,10);
 void setup()
 {
   SIM900A.begin(9600);   // Setting the baud rate of GSM Module  
@@ -29,7 +29,7 @@ void loop()
   SIM900A.println("AT+CMGF=1");    //Sets the GSM Module in Text Mode
   delay(1000);
   Serial.println ("Set SMS Number");
-  SIM900A.println("AT+CMGS=\"9833913747\"\r"); //Mobile phone number to send message
+  SIM900A.println("AT+CMGS=\"8097245128\"\r"); //Mobile phone number to send message
   delay(1000);
   Serial.println ("Set SMS Content");
   SIM900A.println("TEst");// Messsage content

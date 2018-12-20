@@ -1,232 +1,137 @@
 #include <SoftwareSerial.h>
-SoftwareSerial SIM900A(10,11); // RX | TX
-// Connect the SIM900A TX to Arduino pin 2 RX. 
-// Connect the SIM900A RX to Arduino pin 3 TX. 
+SoftwareSerial SIM900A(11,10); // TX | RX
+// Connect the SIM900A TX to Arduino pin 11. 
+// Connect the SIM900A RX to Arduino pin 10. 
+
+#include<dht.h>
+dht DHT1;
+//dht DHT2;
+
+#define DHT11_PIN1 3 
+//define DHT11_PIN2 4 
+
 char c = ' ';
+
+int sensor_pin0 = A0;
+int sensor_pin1 = A1;
+int sensor_pin2 = A2;
+int sensor_pin3 = A3;
+int sensor_pin4 = A4;
+int moisture_0, moisture_1, moisture_2, moisture_3, moisture_4 ;
+
+String url = "AT+HTTPPARA=\"URL\",\"http://eb3481c8.ngrok.io/test?";
+
 void setup() 
 {
-// start th serial communication with the host computer
-Serial.begin(9600);
-while(!Serial);
-Serial.println("Arduino with SIM900A is ready");
-// start communication with the SIM900A in 9600
-SIM900A.begin(9600); 
-Serial.println("SIM900A started at 9600");
-delay(1000);
-Serial.println("Setup Complete! SIM900A is Ready!");
+
+    // start th serial communication with the host computer
+    
+    Serial.begin(9600);
+    while(!Serial);
+    
+    // start communication with the SIM900A in 9600
+    
+    SIM900A.begin(9600);  
+    delay(1000);
+
 }
-//void loop()
-//{
-//// Keep reading from SIM800 and send to Arduino Serial Monitor
-//if (SIM900A.available())
-//{ c = SIM900A.read();
-//Serial.write(c);}
-//// Keep reading from Arduino Serial Monitor and send to SIM900A
-//if (Serial.available())
-//{ c = Serial.read();
-//SIM900A.write(c); 
-//}
-//}
-
-
-
-
 
 
 void loop() {
-  Serial.println("TCP Send :");
-  Serial.print("AT\\r\\n");
-  SIM900A.println("AT"); /* Check Communication */
-  delay(2000);
-  ShowSerialData(); /* Print response on the serial monitor */
-  delay(2000);
-  Serial.print("AT+CPIN?\\r\\n");
-  SIM900A.println("AT+CPIN?"); /* Non-Transparent (normal) mode for TCP/IP application */
-  delay(2000);
-  ShowSerialData();
-  delay(2000);
-  Serial.print("AT+COPS?\\r\\n");
-  SIM900A.println("AT+COPS?");  /* Single TCP/IP connection mode */
-  delay(2000);
-  ShowSerialData();
-  delay(2000);
-  Serial.print("AT+CREG?\\r\\n");
-  SIM900A.println("AT+CREG?"); /* Attach to GPRS Service */
-  delay(2000);
-  ShowSerialData();
-  delay(2000);
-  Serial.print("AT+CGATT?\\r\\n");
-  SIM900A.println("AT+CGATT?"); /* Network registration status */
-  delay(2000);
-  ShowSerialData();
-  delay(2000);
-  Serial.print("AT+CIPSTATUS\\r\\n");
-  SIM900A.println("AT+CIPSTATUS");  /* Attached to or detached from GPRS service */ 
-  delay(2000); 
-  ShowSerialData();
-  delay(2000);
-  Serial.print("AT+CIPMUX=0\\r\\n");
-  SIM900A.println("AT+CIPMUX=0"); /* Start task and set APN */
-  delay(2000);
-  ShowSerialData();
-  delay(2000);
-  Serial.print("AT+CSTT=\"airtelgprs.com\",\"\",\"\"\\r\\n");
-  SIM900A.println("AT+CSTT=\"airtelgprs.com\",\"\",\"\""); /* Bring up wireless connection with GPRS */
-  delay(2000);
-  ShowSerialData();
-  delay(2000);
-  Serial.print("AT+CIICR\\r\\n");
-  SIM900A.println("AT+CIICR"); /* Get local IP address */
-  delay(2000);
-  ShowSerialData();
-  delay(2000);
-  Serial.print("AT+CIFSR\\r\\n");
-  SIM900A.println("AT+CIFSR");  /* Start up TCP connection */
-  delay(2000);
-  ShowSerialData();
-  delay(2000);
-  Serial.print("AT+SAPBR=1,1\\r\\n");
-  SIM900A.println("AT+SAPBR=1,1"); /* Send data through TCP connection */
-  delay(2000);
-  ShowSerialData();
-  delay(2000);
-  Serial.print("AT+SAPBR=2,1\\r\\n");
-  SIM900A.println("AT+SAPBR=2,1"); /* Non-Transparent (normal) mode for TCP/IP application */
-  delay(2000);
-  ShowSerialData();
-  delay(2000);
-  Serial.print("AT+HTTPINIT\\r\\n");
-  SIM900A.println("AT+HTTPINIT"); /* Non-Transparent (normal) mode for TCP/IP application */
-  delay(2000);
-  ShowSerialData();
-  delay(2000);
-  Serial.print("AT+HTTPPARA=\"CID\",1\\r\\n");
-  SIM900A.println("AT+HTTPPARA=\"CID\",1"); /* Non-Transparent (normal) mode for TCP/IP application */
-  delay(2000);
-  ShowSerialData();
-  delay(2000);
-  Serial.print("AT+HTTPPARA=\"URL\",\"http://35.199.49.62/\"\\r\\n");
-  SIM900A.println("AT+HTTPPARA=\"URL\",\"http://35.199.49.62/\""); /* Non-Transparent (normal) mode for TCP/IP application */
-  delay(2000);
-  ShowSerialData();
-  delay(2000);
-  Serial.print("AT+HTTPACTION=0\\r\\n");
-  SIM900A.println("AT+HTTPACTION=0"); /* Non-Transparent (normal) mode for TCP/IP application */
-  delay(2000);
-  ShowSerialData();
-//  delay(2000);
-//  Serial.print("GET /update?api_key=C7JFHZY54GLCJY38&field1=1\\r\\n");
-//  SIM900A.print("GET /update?api_key=C7JFHZY54GLCJY38&field1=1\r\n\x1A");  /* URL for data to be sent to */
-//  delay(10000);
-//  ShowSerialData();
-//  delay(2000);
-//  Serial.print("AT+CIPSHUT\\r\\n");
-//  SIM900A.println("AT+CIPSHUT"); /* Deactivate GPRS PDP content */
-//  delay(2000);
-//  ShowSerialData();
-//  delay(2000);
+
+    // Moisture sensor values reading
+    
+    moisture_0 = analogRead(sensor_pin0);
+    moisture_1 = analogRead(sensor_pin1);
+    moisture_2 = analogRead(sensor_pin2);
+    moisture_3 = analogRead(sensor_pin3);
+    moisture_4 = analogRead(sensor_pin4);
+    
+    // Moisture sensor values calibrating
+    
+    moisture_0 = map(moisture_0,1100,100,0,100);
+    moisture_1 = map(moisture_1,1100,100,0,100);
+    moisture_2 = map(moisture_2,1100,100,0,100);
+    moisture_3 = map(moisture_3,1100,100,0,100);
+    moisture_4 = map(moisture_4,1100,100,0,100);
+    
+    url = url + "moisture_0=" + String(moisture_0) + "&&";
+    url = url + "moisture_1=" + String(moisture_1) + "&&";
+    url = url + "moisture_2=" + String(moisture_2) + "&&";
+    url = url + "moisture_3=" + String(moisture_3) + "&&";
+    url = url + "moisture_4=" + String(moisture_4) + "&&";
+    
+    delay(2000);
+    
+    // Humidity and Temperature Sensor initializing
+    
+    int chk1 = DHT1.read11(DHT11_PIN1);
+    //int chk2 = DHT2.read11(DHT11_PIN2);
+    
+    // Humidity and Temperature Sensor reading
+    
+    int humidity_1 = DHT1.humidity;
+    //int humidity_2 = DHT2.humidity;
+    
+    int temperature_1 = DHT1.temperature;
+    //int temperature_2 = DHT2.temperature;
+    
+    url = url + "humidity_1=" + String(humidity_1) + "&&";
+    //url = url + "humidity_2=" + String(humidity_2) + "&&";
+    
+    url = url + "temperature_1=" + String(temperature_1) + "&&";
+    //url = url + "temperature_2=" + String(temperature_2) + "&&";
+    
+    delay(2000);
+    
+    // Send data to server
+    
+    SIM900A.println("AT"); /* Check Communication */
+    delay(2000);
+    
+    SIM900A.println("AT+CPIN?"); /* Non-Transparent (normal) mode for TCP/IP application */
+    delay(2000);
+    
+    SIM900A.println("AT+COPS?");  /* Single TCP/IP connection mode */
+    delay(2000);
+    
+    SIM900A.println("AT+CREG?"); /* Attach to GPRS Service */
+    delay(2000);
+    
+    SIM900A.println("AT+CGATT?"); /* Network registration status */
+    delay(2000);
+    
+    SIM900A.println("AT+CIPSTATUS");  /* Attached to or detached from GPRS service */ 
+    delay(2000);
+    
+    SIM900A.println("AT+CIPMUX=0"); /* Start task and set APN */
+    delay(2000);
+    
+    SIM900A.println("AT+CSTT=\"airtelgprs.com\",\"\",\"\""); /* Bring up wireless connection with GPRS */
+    delay(2000);
+    
+    SIM900A.println("AT+CIICR"); /* Get local IP address */
+    delay(2000);
+    
+    SIM900A.println("AT+CIFSR");  /* Start up TCP connection */
+    delay(2000);
+    
+    SIM900A.println("AT+SAPBR=1,1"); /* Send data through TCP connection */
+    delay(2000);
+    
+    SIM900A.println("AT+SAPBR=2,1"); /* Non-Transparent (normal) mode for TCP/IP application */
+    delay(2000);
+    
+    SIM900A.println("AT+HTTPINIT"); /* Non-Transparent (normal) mode for TCP/IP application */
+    delay(2000);
+    
+    SIM900A.println("AT+HTTPPARA=\"CID\",1"); /* Non-Transparent (normal) mode for TCP/IP application */
+    delay(2000);
+    
+    SIM900A.println(url + "\""); /* Non-Transparent (normal) mode for TCP/IP application */
+    delay(2000);
+    
+    SIM900A.println("AT+HTTPACTION=0"); /* Non-Transparent (normal) mode for TCP/IP application */
+    delay(2000);
+
 }
-
-void ShowSerialData()
-{
-  while(SIM900A.available()!=0)  /* If data is available on serial port */
-  Serial.write(char (SIM900A.read())); /* Print character received on to the serial monitor */
-}
-
-
-
-
-
-
-
-
-//AT
-//
-//OK
-//AT+CPIN?
-//
-//+CPIN: READY
-//
-//OK
-//AT+COPS?
-//
-//+COPS: 0,0,"AirTel"
-//
-//OK
-//AT+CREG?
-//
-//+CREG: 0,1
-//
-//OK
-//AT+CGATT?
-//
-//+CGATT: 1
-//
-//OK
-//AT+CIPSTATUS
-//
-//OK
-//
-//STATE: IP INITIAL
-//AT+CIPMUX=0
-//
-//OK
-//AT+CSTT="airtelgprs.com","",""
-//
-//OK
-//AT+CIICR
-//
-//OK
-//AT+CIFSR
-//
-//100.90.43.59
-//AT+SAPBR=1,1
-//
-//OK
-//AT+SAPBR=2,1
-//
-//+SAPBR: 1,1,"100.77.138.232"
-//
-//OK
-//AT+HTTPINIT
-//
-//OK
-//AT+HTTPPARA="CID",1
-//
-//OK
-//AT+HTTPPARA="URL","http://35.199.49.62/"
-//
-//OK
-//AT+HTTPACTION=0
-//
-//OK
-//
-//+HTTPACTION: 0,200,438
-//AT+HTTPACTION=0  
-//
-//OK
-//
-//+HTTPACTION: 0,200,438
-//AT+HTTPREAD
-//
-//+HTTPREAD: 438
-//<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 3.2 Final//EN"><html>
-//<title>Directory listing for /</title>
-//<body>
-//<h2>Directory listing for /</h2>
-//<hr>
-//<ul>
-//<li><a href=".bash_history">.bash_history</a>
-//<li><a href=".bash_logout">.bash_logout</a>
-//<li><a href=".bashrc">.bashrc</a>
-//<li><a href=".cache/">.cache/</a>
-//<li><a href=".config/">.config/</a>
-//<li><a href=".profile">.profile</a>
-//<li><a href=".ssh/">.ssh/</a>
-//</ul>
-//<hr>
-//</body>
-//</html>
-//
-//OK
-
