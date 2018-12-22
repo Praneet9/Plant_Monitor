@@ -17,7 +17,6 @@ def catch_all(path):
 
 @app.route("/atamajhisatakli")
 def index():
-
     try:
         data = {}
         date = datetime.datetime.now()
@@ -25,21 +24,21 @@ def index():
         data['year'] = date.strftime('%Y')
         data['month'] = date.strftime('%m')
         data['date'] = date.strftime('%d')
-
+        
         date['hour'] = date.strftime('%H')
         data['minute'] = date.strftime('%M')
 
         data['moisture_0'] = request.args['moisture_0']
         data['moisture_1'] = request.args['moisture_1']
         data['moisture_2'] = request.args['moisture_2']
-        data['moisture_3'] = request.args['moisture_3']
-        data['moisture_4'] = request.args['moisture_4']
+        #data['moisture_3'] = request.args['moisture_3']
+        #data['moisture_4'] = request.args['moisture_4']
 
-        data['humidity_1'] = request.args['humidity_1']
-        data['temperature_1'] = request.args['temperature_1']
+        #data['humidity_1'] = request.args['humidity_1']
+        #data['temperature_1'] = request.args['temperature_1']
 
-        data['humidity_2'] = request.args['humidity_2']
-        data['temperature_2'] = request.args['temperature_2']
+        #data['humidity_2'] = request.args['humidity_2']
+        #data['temperature_2'] = request.args['temperature_2']
 
         db.insert_data('data', data)
         return "Inserted"
@@ -67,4 +66,4 @@ def data():
     return jsonify(d)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
