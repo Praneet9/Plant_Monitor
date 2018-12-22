@@ -7,137 +7,83 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
+    <style>
+        body {
+            background-color: #fafafa;
+        }
+    </style>
     <title>Hello, world!</title>
   </head>
   <body>
-    <h1>{{name}}</h1>
     <div class="container-fluid">
-        <div class="row text-center">
-            <div class="col-4">
+        <h3 class="text-center mt-5 mb-5">Soil Moisture Sensors</h3>
+        <div class="row justify-content-center text-center ml-5 mr-5">
+            <div class="card shadow rounded mr-lg-4 ml-lg-4 mb-lg-5 mb-sm-5 mr-sm-0 ml-sm-0 col-lg-5 col-sm-12">
                 <div>
-                    <canvas id="myChart1" ></canvas>
+                    <canvas id="plant1" ></canvas>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="card shadow rounded mr-lg-4 ml-lg-4 mb-lg-5 mb-sm-5 mr-sm-0 ml-sm-0 col-lg-5 col-sm-12">
                 <div>
-                    <canvas id="myChart2" ></canvas>
+                    <canvas id="plant2" ></canvas>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="card shadow rounded mr-lg-4 ml-lg-4 mb-lg-5 mb-sm-5 mr-sm-0 ml-sm-0 col-lg-5 col-sm-12">
                 <div>
-                    <canvas id="myChart3" ></canvas>
+                    <canvas id="plant3" ></canvas>
+                </div>
+            </div>
+            <div class="card shadow rounded mr-lg-4 ml-lg-4 mb-lg-5 mb-sm-5 mr-sm-0 ml-sm-0 col-lg-5 col-sm-12">
+                <div>
+                    <canvas id="plant4" ></canvas>
+                </div>
+            </div>
+            <div class="card shadow rounded mr-lg-4 ml-lg-4 mb-lg-5 mb-sm-5 mr-sm-0 ml-sm-0 col-lg-5 col-sm-12">
+                <div>
+                    <canvas id="plant5" ></canvas>
+                </div>
+            </div>
+            <div class="card shadow rounded mr-lg-4 ml-lg-4 mb-lg-5 mb-sm-5 mr-sm-0 ml-sm-0 col-lg-5 col-sm-12">
+                <div>
+                    <canvas id="plant6" ></canvas>
                 </div>
             </div>
         </div>
-    </div>
-    <div  style="width: 800px; height: 800px;">
-        <canvas id="myChart" ></canvas>
+        <h3 class="text-center mt-5 mb-5">Temperature Sensors</h3>
+        <div class="row justify-content-center text-center ml-5 mr-5">
+            <div class="card shadow rounded mr-lg-4 ml-lg-4 mb-lg-5 mb-sm-5 mr-sm-0 ml-sm-0 col-lg-5 col-sm-12">
+                <div>
+                    <canvas id="temp1" ></canvas>
+                </div>
+            </div>
+            <div class="card shadow rounded mr-lg-4 ml-lg-4 mb-lg-5 mb-sm-5 mr-sm-0 ml-sm-0 col-lg-5 col-sm-12">
+                    <div>
+                        <canvas id="temp2" ></canvas>
+                    </div>
+                </div>
+        </div>
+        <h3 class="text-center mt-5 mb-5">Humidity Sensors</h3>
+        <div class="row justify-content-center text-center ml-5 mr-5">
+            <div class="card shadow rounded mr-lg-4 ml-lg-4 mb-lg-5 mb-sm-5 mr-sm-0 ml-sm-0 col-lg-5 col-sm-12">
+                <div>
+                    <canvas id="humidity1" ></canvas>
+                </div>
+            </div>
+            <div class="card shadow rounded mr-lg-4 ml-lg-4 mb-lg-5 mb-sm-5 mr-sm-0 ml-sm-0 col-lg-5 col-sm-12">
+                <div>
+                    <canvas id="humidity2" ></canvas>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="../static/js/Chart.min.js" type="text/javascript"></script>
     <!-- <script src="../static/js/main.js" type="text/javascript"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="{{url_for('static', filename='js/main.js')}}" type="text/javascript"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-  
-    <script>
-       var ctx = document.getElementById("myChart1").getContext('2d');
-       console.log("{{name.left | length}}")
-       var n = 0;
-       var numbers = []
-       {% for i in name.left %}
-       
-
-        numbers.push(parseInt("{{i}}"))
-        n = n +1;
-       {% endfor %}
-    //    console.log('{{name.left | safe}}')
-    console.log(numbers)
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-        datasets: [{
-            label: 'Soil Moisture Sensor',
-            data: numbers,
-            backgroundColor: [
-                'transparent',
-            ],
-            borderColor: [
-               'blue'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
-var ctx = document.getElementById("myChart2").getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-        datasets: [{
-            label: 'Soil Moisture Sensor',
-            data: [12, 19, 23, 15, 2, 30, 15, 6, 20],
-            backgroundColor: [
-                'transparent',
-            ],
-            borderColor: [
-               'blue'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
-var ctx = document.getElementById("myChart3").getContext('2d');
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-        datasets: [{
-            label: 'Soil Moisture Sensor',
-            data: [12, 19, 3, 5, 2, 3, 15, 6, 20],
-            backgroundColor: [
-                'transparent',
-            ],
-            borderColor: [
-               'blue'
-            ],
-            borderWidth: 1
-        }]
-    },
-    options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero:true
-                }
-            }]
-        }
-    }
-});
-    </script>
-
 
 </body>
 </html>
