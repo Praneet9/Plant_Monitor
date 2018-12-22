@@ -1,18 +1,12 @@
 from pymongo import MongoClient
 
-def testingdb():
-    print('Hello My DB')
-
-# db = client.smart_editor
-# nonfilled_collection = db.non_filled
-# filled_collection = db.filled
 
 def getConnection():
     client = MongoClient('localhost:27017')
     return client
 
 def getDB(client):
-    db = client.smart_editor2
+    db = client.iot
     return db
 
 def getCollection(collection_name, db):
@@ -32,7 +26,6 @@ def insert_data(collection, args_dict):
     args_dict -> a dictionary of entries in db
     '''
     collection_name.insert_one(args_dict)
-    print('Data inserted successfully')
     closeConnection(client)
 
 def read_data(collection):
@@ -79,6 +72,3 @@ def delete_row(collection, idno):
     collection_name.delete_many(idno)
     closeConnection(client)
     print('Row deleted')
-
-if __name__ == '__main__':
-    app.run(debug=True)
