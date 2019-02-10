@@ -1,6 +1,7 @@
 
 //https://create.arduino.cc/projecthub/mafzal/temperature-monitoring-with-dht22-arduino-15b013
 
+//http://cactus.io/hookups/sensors/temperature-humidity/dht22/hookup-arduino-to-dht22-temp-humidity-sensor
 
 /* How to use the DHT-22 sensor with Arduino uno
    Temperature and humidity sensor
