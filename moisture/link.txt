@@ -1,0 +1,3 @@
+Soil Moisture
+
+https://www.switchdoc.com/2018/11/tutorial-capacitive-moisture-sensor-grove/
