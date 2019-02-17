@@ -1,6 +1,4 @@
-jQuery.get('/chart').done(function(results) {
-        console.log('dasdsad');
-        console.log(results);
+jQuery.get('/data').done(function(results) {
         plot(results);
 });
 
@@ -35,7 +33,7 @@ function plot(data) {
 
 function myChart(context, plot_data, plot_labels, label) {
     new Chart(context, {
-        type: 'line',
+        type: 'bar',
         data: {
             labels: plot_labels,
             datasets: [{
@@ -54,7 +52,7 @@ function myChart(context, plot_data, plot_labels, label) {
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero:true
+                        beginAtZero:false
                     }
                 }]
             }

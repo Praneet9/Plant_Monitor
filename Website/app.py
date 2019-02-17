@@ -53,8 +53,8 @@ def test():
     print("SMS2",request.args['x'])
     return "Hello"
 
-@app.route("/data")
-def data():
+@app.route("/chart")
+def chart():
     labels = []
     for i in range(48):
         labels.append(randint(0, 100))
@@ -68,26 +68,25 @@ def data():
     d['results'][20] = 50.50
     return jsonify(d)
 
-@app.route("/chart")
-def chart():
+@app.route("/data")
+def data():
     cols = db.read_data("data")
     data = {'plot_labels': [], 'moisture_1': [], 'temperature_1': [], 'humidity_1': []}
 
     for col in cols:
-        data['plot_labels'].append(col['date'])
+        data['plot_labels'].append(col['date'] + '/' + col['month'] + ' - ' + col['hour'] + ":" + col['minute'])
         data['moisture_1'].append(int(col['moisture_1']))
         
         if math.isnan(float(col['temperature_1'])):
-            data['temperature_1'].append('NAN')
+            data['temperature_1'].append(0)
         else:
-            # print(float(temp_t) + 50000)
             data['temperature_1'].append(float(col['temperature_1']))
             
-        if math.isnan(float(float(col['humidity_1']))):
-            data['humidity_1'].append('NAN')
+        if math.isnan(float(col['humidity_1'])):
+            data['humidity_1'].append(0)
         else:
             data['humidity_1'].append(float(col['humidity_1']))
-    
+    # print(data)
     return jsonify(data)
 
 @app.route("/")
@@ -103,4 +102,4 @@ def flutter_api():
     return json_util.dumps(record)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=False)

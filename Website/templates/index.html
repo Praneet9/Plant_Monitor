@@ -11,16 +11,20 @@
         body {
             background-color: #fafafa;
         }
+        .chartAreaWrapper {
+            overflow-x: scroll
+        }
     </style>
     <title>Hello, world!</title>
   </head>
   <body>
     <div class="container-fluid">
         <h3 class="text-center mt-5 mb-5">Soil Moisture Sensors</h3>
-        <div class="row justify-content-center text-center ml-5 mr-5">
-            <div class="card shadow rounded mr-lg-4 ml-lg-4 mb-lg-5 mb-sm-5 mr-sm-0 ml-sm-0 col-lg-5 col-sm-12">
+        <div class="row scroll justify-content-center text-center ml-5 mr-5">
+            <!-- <div class="card shadow rounded mr-lg-4 ml-lg-4 mb-lg-5 mb-sm-5 mr-sm-0 ml-sm-0 col-lg-5 col-sm-12"> -->
+            <div class="card scroll shadow rounded mr-lg-12 ml-lg-12 mb-lg-12 mb-sm-12 mr-sm-12 ml-sm-12 col-lg-12 col-sm-12">
                 <div>
-                    <canvas id="plant1" ></canvas>
+                    <canvas id="plant1"></canvas>
                 </div>
             </div>
             <!-- <div class="card shadow rounded mr-lg-4 ml-lg-4 mb-lg-5 mb-sm-5 mr-sm-0 ml-sm-0 col-lg-5 col-sm-12">
@@ -51,7 +55,7 @@
         </div>
         <h3 class="text-center mt-5 mb-5">Temperature Sensors</h3>
         <div class="row justify-content-center text-center ml-5 mr-5">
-            <div class="card shadow rounded mr-lg-4 ml-lg-4 mb-lg-5 mb-sm-5 mr-sm-0 ml-sm-0 col-lg-5 col-sm-12">
+                <div class="card shadow rounded mr-lg-12 ml-lg-12 mb-lg-12 mb-sm-12 mr-sm-12 ml-sm-12 col-lg-12 col-sm-12">
                 <div>
                     <canvas id="temp1" ></canvas>
                 </div>
@@ -64,7 +68,7 @@
         </div>
         <h3 class="text-center mt-5 mb-5">Humidity Sensors</h3>
         <div class="row justify-content-center text-center ml-5 mr-5">
-            <div class="card shadow rounded mr-lg-4 ml-lg-4 mb-lg-5 mb-sm-5 mr-sm-0 ml-sm-0 col-lg-5 col-sm-12">
+                <div class="card shadow rounded mr-lg-12 ml-lg-12 mb-lg-12 mb-sm-12 mr-sm-12 ml-sm-12 col-lg-12 col-sm-12">
                 <div>
                     <canvas id="humidity1" ></canvas>
                 </div>
