@@ -39,12 +39,8 @@ function myChart(context, plot_data, plot_labels, label) {
             datasets: [{
                 label: label,
                 data: plot_data,
-                backgroundColor: [
-                    '#26A69A'
-                ],
-                borderColor: [
-                   'green'
-                ],
+                backgroundColor: '#4fc3f7',
+                borderColor: '#4fc3f7',
                 borderWidth: 1
             }]
         },
