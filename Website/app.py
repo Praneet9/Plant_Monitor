@@ -1,8 +1,13 @@
 from flask import Flask, render_template, jsonify, request
 from static import db
 from random import sample, randint
-app = Flask(__name__)
+from bson import json_util
 import datetime
+import pytz
+import math
+
+app = Flask(__name__)
+
 
 def frange(start, stop, step):
     i = start
@@ -10,32 +15,28 @@ def frange(start, stop, step):
         yield i
         i += step
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
-def catch_all(path):
-    return 'You want path: %s' % path
-
 @app.route("/atamajhisatakli")
 def index():
     try:
         data = {}
-        date = datetime.datetime.now()
+        tz = pytz.timezone('Asia/Kolkata')
+        date = datetime.datetime.now(tz)
 
         data['year'] = date.strftime('%Y')
         data['month'] = date.strftime('%m')
         data['date'] = date.strftime('%d')
         
-        date['hour'] = date.strftime('%H')
+        data['hour'] = date.strftime('%H')
         data['minute'] = date.strftime('%M')
 
-        data['moisture_0'] = request.args['moisture_0']
         data['moisture_1'] = request.args['moisture_1']
-        data['moisture_2'] = request.args['moisture_2']
+        # data['moisture_1'] = request.args['moisture_1']
+        # data['moisture_2'] = request.args['moisture_2']
         #data['moisture_3'] = request.args['moisture_3']
         #data['moisture_4'] = request.args['moisture_4']
 
-        #data['humidity_1'] = request.args['humidity_1']
-        #data['temperature_1'] = request.args['temperature_1']
+        data['humidity_1'] = request.args['humidity_1']
+        data['temperature_1'] = request.args['temperature_1']
 
         #data['humidity_2'] = request.args['humidity_2']
         #data['temperature_2'] = request.args['temperature_2']
@@ -52,7 +53,7 @@ def test():
     print("SMS2",request.args['x'])
     return "Hello"
 
-@app.route("/chart")
+@app.route("/data")
 def data():
     labels = []
     for i in range(48):
@@ -62,8 +63,44 @@ def data():
         'results': sample(labels, 48),
         'plot_labels': list(frange(0.5, 24.5, 0.5))
         }
-
+    d['results'][10] = 40.50
+    d['results'][15] = 45.50
+    d['results'][20] = 50.50
     return jsonify(d)
+
+@app.route("/chart")
+def chart():
+    cols = db.read_data("data")
+    data = {'plot_labels': [], 'moisture_1': [], 'temperature_1': [], 'humidity_1': []}
+
+    for col in cols:
+        data['plot_labels'].append(col['date'])
+        data['moisture_1'].append(int(col['moisture_1']))
+        
+        if math.isnan(float(col['temperature_1'])):
+            data['temperature_1'].append('NAN')
+        else:
+            # print(float(temp_t) + 50000)
+            data['temperature_1'].append(float(col['temperature_1']))
+            
+        if math.isnan(float(float(col['humidity_1']))):
+            data['humidity_1'].append('NAN')
+        else:
+            data['humidity_1'].append(float(col['humidity_1']))
+    
+    return jsonify(data)
+
+@app.route("/")
+def index_main():
+    return render_template('index.html')
+
+@app.route('/api/get/apigetfn', methods=['GET'])
+def flutter_api():
+    record=[]
+    cols = db.read_data("data")
+    for col in cols:
+        record.append(col)
+    return json_util.dumps(record)
 
 if __name__ == '__main__':
     app.run()
