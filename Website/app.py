@@ -73,7 +73,7 @@ def data():
     cols = db.read_data("data")
     data = {'plot_labels': [], 'moisture_1': [], 'temperature_1': [], 'humidity_1': []}
 
-    for col in cols:
+    for col in cols[cols.count() - 1600:]:
         data['plot_labels'].append(col['date'] + '/' + col['month'] + ' - ' + col['hour'] + ":" + col['minute'])
         data['moisture_1'].append(int(col['moisture_1']))
         
