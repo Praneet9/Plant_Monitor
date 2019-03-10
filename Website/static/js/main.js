@@ -48,7 +48,10 @@ function myChart(context, plot_data, plot_labels, label) {
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero:false
+                    	suggestedMin: 0,
+                    	suggestedMax: 100,
+                    	max: 100,
+                    	min: 0,
                     }
                 }]
             }

@@ -72,20 +72,24 @@ def chart():
 def data():
     cols = db.read_data("data")
     data = {'plot_labels': [], 'moisture_1': [], 'temperature_1': [], 'humidity_1': []}
+    temp_humidity = 80
+    temp_temperature = 30
 
-    for col in cols[cols.count() - 1600:]:
+    for col in cols[cols.count() - 1000:]:
         data['plot_labels'].append(col['date'] + '/' + col['month'] + ' - ' + col['hour'] + ":" + col['minute'])
         data['moisture_1'].append(int(col['moisture_1']))
         
         if math.isnan(float(col['temperature_1'])):
-            data['temperature_1'].append(0)
+            data['temperature_1'].append(temp_temperature)
         else:
             data['temperature_1'].append(float(col['temperature_1']))
+            temp_temperature = float(col['temperature_1'])
             
         if math.isnan(float(col['humidity_1'])):
-            data['humidity_1'].append(0)
+            data['humidity_1'].append(temp_humidity)
         else:
             data['humidity_1'].append(float(col['humidity_1']))
+            temp_humidity = float(col['humidity_1'])
     # print(data)
     return jsonify(data)
 
