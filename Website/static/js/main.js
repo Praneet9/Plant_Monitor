@@ -1,60 +1,25 @@
-jQuery.get('/data').done(function(results) {
-        plot(results);
-});
-
-function plot(data) {
-    var plant1 = document.getElementById("plant1").getContext('2d');
-    // var plant2 = document.getElementById("plant2").getContext('2d');
-    // var plant3 = document.getElementById("plant3").getContext('2d');
-    // var plant4 = document.getElementById("plant4").getContext('2d');
-    // var plant5 = document.getElementById("plant5").getContext('2d');
-    // var plant6 = document.getElementById("plant6").getContext('2d');
-
-    var temp1 = document.getElementById("temp1").getContext('2d');
-    // var temp2 = document.getElementById("temp2").getContext('2d');
-
-    var humidity1 = document.getElementById("humidity1").getContext('2d');
-    // var humidity2 = document.getElementById("humidity2").getContext('2d');
-
-    myChart(plant1, data.moisture_1, data.plot_labels, 'Plant 1');
-    // myChart(plant2, data.results, data.plot_labels, 'Plant 2');
-    // myChart(plant3, data.results, data.plot_labels, 'Plant 3');
-    // myChart(plant4, data.results, data.plot_labels, 'Plant 4');
-    // myChart(plant5, data.results, data.plot_labels, 'Plant 5');
-    // myChart(plant6, data.results, data.plot_labels, 'Plant 6');
-
-    myChart(temp1, data.temperature_1, data.plot_labels, 'Temperature 1');
-    // myChart(temp2, data.results, data.plot_labels, 'Temperature 2');
-
-    myChart(humidity1, data.humidity_1, data.plot_labels, 'Humidity 1');
-    // myChart(humidity2, data.results, data.plot_labels, 'Humidity 2');
-
-}
-
-function myChart(context, plot_data, plot_labels, label) {
-    new Chart(context, {
-        type: 'bar',
-        data: {
-            labels: plot_labels,
-            datasets: [{
-                label: label,
-                data: plot_data,
-                backgroundColor: '#4fc3f7',
-                borderColor: '#4fc3f7',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                    	suggestedMin: 0,
-                    	suggestedMax: 100,
-                    	max: 100,
-                    	min: 0,
-                    }
-                }]
-            }
-        }
-    });
-}
+$(".imgAdd").click(function(){
+    $(this).closest(".row").find('.imgAdd').before('<div class="col-sm-2 imgUp"><div class="imagePreview"></div><label class="btn btn-primary">Upload<input type="file" class="uploadFile img" value="Upload Photo" style="width:0px;height:0px;overflow:hidden;"></label><i class="fa fa-times del"></i></div>');
+  });
+  $(document).on("click", "i.del" , function() {
+      $(this).parent().remove();
+  });
+  $(function() {
+      $(document).on("change",".uploadFile", function()
+      {
+              var uploadFile = $(this);
+          var files = !!this.files ? this.files : [];
+          if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+   
+          if (/^image/.test( files[0].type)){ // only image file
+              var reader = new FileReader(); // instance of the FileReader
+              reader.readAsDataURL(files[0]); // read the local file
+   
+              reader.onloadend = function(){ // set image data as background of div
+                  //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+  uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url("+this.result+")");
+              }
+          }
+        
+      });
+  });
