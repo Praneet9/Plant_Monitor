@@ -7,11 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/css/jasny-bootstrap.min.css">
+     Latest compiled and minified CSS -->
+    <!-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/4.0.0/css/jasny-bootstrap.min.css"> -->
+
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
 
     <link rel="stylesheet" type="text/css" href="../static/css/styles.css">
 
@@ -34,19 +36,19 @@
         <div class="card shadow-lg p-3 bg-white rounded" style="margin-top: 50px; height: 100%; color: #616161;">
             <h2 class="text-center mb-3">DISORDER PREDICTION USING LEAF IMAGE</h2>
             <div class="row">
-                <div class="col l6">
+                <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="card p-2 content text-center">
                         <img class="card-img-top" src="../static/assets/upload.svg" id="image-field"
                             alt="Card image cap" width="500" height="500">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col l6">
+                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
                                     <input type="file" name="file-field" class="btn btn-primary" style="display: none;"
                                         id="file-field" accept="image/*" onchange="previewImage(event)"></input>
                                     <input type="button" class="btn btn-primary" value="Upload Image"
                                         onclick="document.getElementById('file-field').click();" style="width: 100%" />
                                 </div>
-                                <div class="col l6">
+                                <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
                                     <button type="submit" id="image_upload" class="btn btn-success"
                                         style="width: 100%">Submit</button>
                                 </div>
@@ -57,9 +59,10 @@
 
                     </div>
                 </div>
-                <div class="col l6">
+                <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="card p-2 content">
-                        <h4 id="predtext_image" class="text-center" style="margin-top: 200px">PREDICTIONS WILL BE SHOWN HERE
+                        <h4 id="predtext_image" class="text-center" style="margin-top: 200px">PREDICTIONS WILL BE SHOWN
+                            HERE
                         </h4>
                         <div class="text-center" id="loader_image" style="display: none; margin-top: 100px">
                             <img src="../static/assets/progress.svg" width="200" height="200" alt="">
@@ -77,25 +80,29 @@
             style="margin-top: 100px; margin-bottom: 50px; height: 100%; color: #616161;">
             <h2 class="text-center mb-3">PLANT HEALTH USING SENSOR DATA</h2>
             <div class="row">
-                <div class="col l6">
+                <div class="col-lg-6 col-md-12 col-sm-12">
                     <div class="card p-2 content">
                         <label for="temperature">Temperature</label>
-                        <input type="number" required name="temperature" class="form-control mb-3" id="temperature" placeholder="Enter temperature">
+                        <input type="number" required name="temperature" class="form-control mb-3" id="temperature"
+                            placeholder="Enter temperature">
 
                         <label for="humidity">Humidity</label>
-                        <input type="number" required name="humidity" class="form-control mb-3" id="humidity" placeholder="Enter humidity">
+                        <input type="number" required name="humidity" class="form-control mb-3" id="humidity"
+                            placeholder="Enter humidity">
 
                         <label for="soil_moisture">Soil Moisture</label>
-                        <input type="number" required name="soil_moisture" class="form-control mb-3" id="soil_moisture" placeholder="Enter soil moisture">
+                        <input type="number" required name="soil_moisture" class="form-control mb-3" id="soil_moisture"
+                            placeholder="Enter soil moisture">
                         <div class="col mt-3" style="margin-bottom: 50px">
                             <button type="submit" id="sensor_data" class="btn btn-success"
                                 style="width: 100%">Submit</button>
                         </div>
-                    
+
                     </div>
                 </div>
-                <div class="col l6">
-                    <h4 id="predtext_sensor" class="text-center" style="margin-top: 150px">PREDICTIONS WILL BE SHOWN HERE
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <h4 id="predtext_sensor" class="text-center" style="margin-top: 150px">PREDICTIONS WILL BE SHOWN
+                        HERE
                     </h4>
                     <div class="text-center" id="loader_sensor" style="display: none; margin-top: 100px">
                         <img src="../static/assets/progress.svg" width="200" height="200" alt="">
@@ -103,10 +110,10 @@
                     </div>
                     <div style="margin-top: 100px;" class="text-center">
                         <h3 class="text-center" id="kmeans" style="display: none"></h3><br><br>
-                    <h3 class="text-center" id="rfc" style="margin-top: 50px; display: none"></h3><br><br>
-                    <h3 class="text-center" id="svm" style="margin-top: 50px; display: none"></h3><br>
+                        <h3 class="text-center" id="rfc" style="margin-top: 50px; display: none"></h3><br><br>
+                        <h3 class="text-center" id="svm" style="margin-top: 50px; display: none"></h3><br>
                     </div>
-                    
+
                 </div>
             </div>
         </div>
