@@ -14,7 +14,12 @@ function previewImage(event){
             var fd = new FormData();
             var files = $('#file-field')[0].files[0];
             fd.append('file',files);
-    
+            
+            $('#disorder').css('display', 'none');
+            $('#score').css('display', 'none');
+            $('#predtext').css('display', 'none');
+            $('#loader').css('display', 'inline');
+
             $.ajax({
                 url: '/image',
                 type: 'post',
@@ -24,15 +29,17 @@ function previewImage(event){
                 timeout: 6000,
                 processData: false,
                 success: function(response){
-                    console.log(response);
-                    if(response != 0){
-                        // $("#img").attr("src",response); 
-                        // $(".preview img").show(); // Display image element
-                        console.log("Done")
-                        alert('Uploaded');
+                    var result = JSON.parse(response);
+                    console.log(result);
+                    if(result.status){
+                        $('#loader').css('display', 'none');
+                        $('#disorder').text("Disorder: " + result.message);
+                        $('#disorder').css('display', 'inline');
+                        $('#score').text("Confidence Score: " + result.score);
+                        $('#score').css('display', 'inline');
                     }else{
-                        console.log("Failed");
-                        alert('file not uploaded');
+                        $('#disorder').text(result.message);
+                        $('#disorder').css('color', 'red');
                     }
                 },
             });

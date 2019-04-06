@@ -1,16 +1,19 @@
 from flask import Flask, render_template, jsonify, request
+from werkzeug.utils import secure_filename
 from bson import json_util
 from datetime import datetime
 import pytz
 import math
-from keras.models import model_from_json
-import tensorflow as tf
-import cv2
-import numpy as np
+# from keras.models import model_from_json
+# import tensorflow as tf
+# import cv2
+# import numpy as np
 import os
 
 if not os.path.exists('uploads'):
     os.mkdir('uploads')
+
+ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'JPG', 'JPEG']
 
 # global model, graph, label_dictionary
 
@@ -32,23 +35,26 @@ def index():
 
 @app.route("/image", methods = ['POST'])
 def predict():
-    test = request.files['file']
-    path = str(datetime.now())
-    test.save('uploads/' + path + '.jpg')
+    image = request.files['file']
+    extension = secure_filename(image.filename).split('.')[-1]
+    if extension not in ALLOWED_EXTENSIONS:
+        return jsonify({'status':False, 'message':'Image type not supported'})
+    else:
+        image_path = 'uploads/' + str(datetime.now()) + '.' + extension
+        try:
+            image.save(image_path)
 
-    # image_path = "test.jpg"
+            img = cv2.imread(image_path)
+            output = cv2.resize(img, (256, 256)).copy()
+            img = cv2.resize(img, (128, 128))
+            img = img / 255
+            with graph.as_default():
+                proba = model.predict(img.reshape(-1, 128, 128, 3))
+        except Exception as _:
+            return jsonify({'status':False, 'message': 'Something went wrong!'})
 
-    # img = cv2.imread(image_path)
-    # output = cv2.resize(img, (256, 256)).copy()
-    # img = cv2.resize(img, (128, 128))
-    # img = img / 255
-    # with graph.as_default():
-    #     proba = model.predict(img.reshape(-1, 128, 128, 3))
-
-    # idx = np.argmax(proba)
-    # label = '<h1>' + label_dictionary[idx] + " ====> " + str(np.max(proba) * 100)[:5] + "%" + '</h1>'
-    # return label
-    return "tjankluo"
+        idx = np.argmax(proba)
+        return jsonify({'status':True, 'message': label_dictionary[idx], 'score': str(np.max(proba) * 100)[:5] + "%"})
 
 if __name__ == '__main__':
     app.run(debug=False)
