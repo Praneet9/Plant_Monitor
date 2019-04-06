@@ -8,7 +8,7 @@ function previewImage(event){
         }
     }
     reader.readAsDataURL(event.target.files[0]);
-    console.log("Starting");
+    event.preventDefault();
 }
 
 $("#image_upload").click(function(){
@@ -83,6 +83,7 @@ $("#sensor_data").click(function(){
                 $('#svm').text("SVM: " + result.svm);
             }else{
                 $('#loader_sensor').css('display', 'none');
+                $('#kmeans').css('display', 'inline');
                 $('#kmeans').text(result.message);
                 $('#kmeans').css('color', 'red');
             }
