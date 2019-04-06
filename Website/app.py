@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify, request
 from bson import json_util
 from datetime import datetime
+from predict_health import predict_svm, predict_rfc, predict_kmeans
 import pytz
 import math
 from keras.models import model_from_json
@@ -72,6 +73,18 @@ def prediction():
     print(cc)
     #label = '<h1>' + label_dictionary[idx] + " ====> " + str(np.max(proba) * 100)[:5] + "%" + '</h1>'
     return jsonify({'status':res, 'cc':cc})
+
+# Sensors Part
+@app.route("/sensor", methods=['POST'])
+def health_prediction():
+    soil_moisture = request.form['soil_moisture']
+    humidity = request.form['humidity']
+    temperature = request.form['temperature']
+    svm_result = predict_svm(soil_moisture, humidity, temperature)
+    rfc_result = predict_rfc(soil_moisture, humidity, temperature)
+    kmeans_result = predict_kmeans(soil_moisture, humidity, temperature)
+
+    return "Hello World"
 
 if __name__ == '__main__':
     app.run(debug=False)
