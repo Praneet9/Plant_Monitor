@@ -50,5 +50,28 @@ def predict():
     # return label
     return "tjankluo"
 
+@app.route("/api", methods = ['POST'])
+def prediction():
+    test = request.files['photo']
+    print(test)
+    test.save('test.jpg')
+
+    image_path = "test.jpg"
+
+    img = cv2.imread(image_path)
+    output = cv2.resize(img, (256, 256)).copy()
+    img = cv2.resize(img, (128, 128))
+    img = img / 255
+    with graph.as_default():
+        proba = model.predict(img.reshape(-1, 128, 128, 3))
+
+    idx = np.argmax(proba)
+
+    res = label_dictionary[idx]
+    cc = str(np.max(proba) * 100)[:5]
+    print(cc)
+    #label = '<h1>' + label_dictionary[idx] + " ====> " + str(np.max(proba) * 100)[:5] + "%" + '</h1>'
+    return jsonify({'status':res, 'cc':cc})
+
 if __name__ == '__main__':
     app.run(debug=False)
