@@ -31,8 +31,8 @@
         </button> -->
 
 
-        <div class="card shadow-lg p-3 bg-white rounded" style="margin-top: 100px; height: 100%; color: #616161;">
-            <h2 class="text-center">DISORDER PREDICTION USING LEAF IMAGE</h2>
+        <div class="card shadow-lg p-3 bg-white rounded" style="margin-top: 50px; height: 100%; color: #616161;">
+            <h2 class="text-center mb-3">DISORDER PREDICTION USING LEAF IMAGE</h2>
             <div class="row">
                 <div class="col l6">
                     <div class="card p-2 content text-center">
@@ -47,7 +47,7 @@
                                         onclick="document.getElementById('file-field').click();" style="width: 100%" />
                                 </div>
                                 <div class="col l6">
-                                    <button type="submit" id="submit" class="btn btn-success"
+                                    <button type="submit" id="image_upload" class="btn btn-success"
                                         style="width: 100%">Submit</button>
                                 </div>
                             </div>
@@ -57,11 +57,11 @@
 
                     </div>
                 </div>
-                <div class="col l6 align-middle">
-                    <div class="card p-2 content align-middle">
-                        <h4 id="predtext" class="text-center" style="margin-top: 200px">PREDICTIONS WILL BE SHOWN HERE
+                <div class="col l6">
+                    <div class="card p-2 content">
+                        <h4 id="predtext_image" class="text-center" style="margin-top: 200px">PREDICTIONS WILL BE SHOWN HERE
                         </h4>
-                        <div class="text-center" id="loader" style="display: none; margin-top: 100px">
+                        <div class="text-center" id="loader_image" style="display: none; margin-top: 100px">
                             <img src="../static/assets/progress.svg" width="200" height="200" alt="">
                             <h3>Processing Image...</h3>
                         </div>
@@ -75,22 +75,38 @@
 
         <div class="card shadow-lg p-3 bg-white rounded"
             style="margin-top: 100px; margin-bottom: 50px; height: 100%; color: #616161;">
-            <h2 class="text-center">PLANT HEALTH USING SENSOR DATA</h2>
+            <h2 class="text-center mb-3">PLANT HEALTH USING SENSOR DATA</h2>
             <div class="row">
                 <div class="col l6">
                     <div class="card p-2 content">
                         <label for="temperature">Temperature</label>
-                        <input type="number" class="form-control" id="temperature" placeholder="Enter temperature">
+                        <input type="number" required name="temperature" class="form-control mb-3" id="temperature" placeholder="Enter temperature">
 
                         <label for="humidity">Humidity</label>
-                        <input type="number" class="form-control" id="humidity" placeholder="Enter humidity">
+                        <input type="number" required name="humidity" class="form-control mb-3" id="humidity" placeholder="Enter humidity">
 
                         <label for="soil_moisture">Soil Moisture</label>
-                        <input type="number" class="form-control" id="soil_moisture" placeholder="Enter soil moisture">
+                        <input type="number" required name="soil_moisture" class="form-control mb-3" id="soil_moisture" placeholder="Enter soil moisture">
+                        <div class="col mt-3" style="margin-bottom: 50px">
+                            <button type="submit" id="sensor_data" class="btn btn-success"
+                                style="width: 100%">Submit</button>
+                        </div>
+                    
                     </div>
                 </div>
-                <div class="col l6 align-middle">
-
+                <div class="col l6">
+                    <h4 id="predtext_sensor" class="text-center" style="margin-top: 150px">PREDICTIONS WILL BE SHOWN HERE
+                    </h4>
+                    <div class="text-center" id="loader_sensor" style="display: none; margin-top: 100px">
+                        <img src="../static/assets/progress.svg" width="200" height="200" alt="">
+                        <h3>Calculating Values...</h3>
+                    </div>
+                    <div style="margin-top: 100px;" class="text-center">
+                        <h3 class="text-center" id="kmeans" style="display: none"></h3><br><br>
+                    <h3 class="text-center" id="rfc" style="margin-top: 50px; display: none"></h3><br><br>
+                    <h3 class="text-center" id="svm" style="margin-top: 50px; display: none"></h3><br>
+                    </div>
+                    
                 </div>
             </div>
         </div>
