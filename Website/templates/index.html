@@ -22,16 +22,6 @@
 
 <body>
     <div class="container">
-        <!-- <h3>Hello world</h3>
-
-        <input type="file" name="file-field" id="file-field" accept="image/*" onchange="previewImage(event)">
-        <div>
-            <img src="userimage.png" width="256" height="256" id="image-field" alt="">
-        </div>
-        <button type="submit" id="submit">
-            Submit
-        </button> -->
-
 
         <div class="card shadow-lg p-3 bg-white rounded" style="margin-top: 50px; height: 100%; color: #616161;">
             <h2 class="text-center mb-3">DISORDER PREDICTION USING LEAF IMAGE</h2>
@@ -77,7 +67,7 @@
         </div>
 
         <div class="card shadow-lg p-3 bg-white rounded"
-            style="margin-top: 100px; margin-bottom: 50px; height: 100%; color: #616161;">
+            style="margin-top: 50px; margin-bottom: 50px; height: 100%; color: #616161;">
             <h2 class="text-center mb-3">PLANT HEALTH USING SENSOR DATA</h2>
             <div class="row">
                 <div class="col-lg-6 col-md-12 col-sm-12">
@@ -101,17 +91,19 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12">
-                    <h4 id="predtext_sensor" class="text-center" style="margin-top: 150px">PREDICTIONS WILL BE SHOWN
-                        HERE
-                    </h4>
-                    <div class="text-center" id="loader_sensor" style="display: none; margin-top: 100px">
-                        <img src="../static/assets/progress.svg" width="200" height="200" alt="">
-                        <h3>Calculating Values...</h3>
-                    </div>
-                    <div style="margin-top: 100px;" class="text-center">
-                        <h3 class="text-center" id="kmeans" style="display: none"></h3><br><br>
-                        <h3 class="text-center" id="rfc" style="margin-top: 50px; display: none"></h3><br><br>
-                        <h3 class="text-center" id="svm" style="margin-top: 50px; display: none"></h3><br>
+                    <div class="card p-2 content">
+                        <h4 id="predtext_sensor" class="text-center" style="margin-top: 150px">PREDICTIONS WILL BE SHOWN
+                            HERE
+                        </h4>
+                        <div class="text-center" id="loader_sensor" style="display: none; margin-top: 100px">
+                            <img src="../static/assets/progress.svg" width="200" height="200" alt="">
+                            <h3>Calculating Values...</h3>
+                        </div>
+                        <div style="margin-top: 100px;" class="text-center">
+                            <h3 class="text-center" id="kmeans" style="display: none"></h3><br><br>
+                            <h3 class="text-center" id="rfc" style="margin-top: 50px; display: none"></h3><br><br>
+                            <h3 class="text-center" id="svm" style="margin-top: 50px; display: none"></h3><br>
+                        </div>
                     </div>
 
                 </div>
@@ -127,9 +119,10 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <!-- <script src="../static/js/Chart.min.js" type="text/javascript"></script> -->
     <!-- <script src="../static/js/main.js" type="text/javascript"></script> -->
-
+    <!-- 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script> -->
+    <script type="text/javascript" src="../static/js/jquery-3.3.1.min.js"></script>
     <script src="{{url_for('static', filename='js/main.js')}}" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
         integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"

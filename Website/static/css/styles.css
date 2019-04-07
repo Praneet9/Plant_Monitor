@@ -1,8 +1,16 @@
+@font-face {
+  font-family: "Lato-Regular";
+  src: url("../fonts/Lato-Bold.ttf");
+  }
+
 body, html
 {
   background: linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%);
   /* background: #eceff1; */
   /* height: 85vh; */
+  font-family: 'Lato-Regular', Arial, sans-serif;
+  font-weight:normal;
+  font-style:normal;
 }
 
 .content {
