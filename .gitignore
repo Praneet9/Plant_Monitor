@@ -2,6 +2,7 @@
 /dataset
 **/dataset/
 **/uploads/
+**/ignore/
 
 # Created by https://www.gitignore.io/api/osx,macos,flask,python,jupyternotebook,visualstudiocode,jupyternotebooks
 # Edit at https://www.gitignore.io/?templates=osx,macos,flask,python,jupyternotebook,visualstudiocode,jupyternotebooks
