@@ -61,7 +61,7 @@ def photo_handler(bot, update):
     bot.send_message(chat_id=update.message.chat_id, text="{} Detected with Confidence {}".format(res, cc))
 
 def main():
-    TOKEN = open('key.txt').read()
+    TOKEN = open('ignore/key.txt').read()
     updater = Updater(TOKEN)
 
     dp = updater.dispatcher
